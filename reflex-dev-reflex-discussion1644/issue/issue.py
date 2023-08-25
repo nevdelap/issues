@@ -9,7 +9,7 @@ import reflex as rx
 class Thing(rx.Base):
     value: str
     new_value: str | None
-    is_editing: bool
+    is_editing: bool  # new_value is not None could serve this purpose, but to keep things clear.
 
 
 class State(rx.State):
@@ -52,8 +52,8 @@ class State(rx.State):
 def thing_box(thing: Thing, index: int) -> rx.Component:
     return rx.box(
         rx.cond(  # type: ignore
-            # When this changes because of the the on_clicks below it doesn't
-            # react, so you have to refresh the page to see the updated
+            # The issue: When this changes because of the the on_clicks below it
+            # doesn't react, so you have to refresh the page to see the updated
             # state.
             thing.is_editing,
             rx.hstack(
